@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://flatfeehomesexchange.com/sitemap-index.xml
