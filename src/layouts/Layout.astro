@@ -15,7 +15,13 @@ const {
   noindex = false,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = (() => {
+  const url = new URL(Astro.url.pathname, Astro.site);
+  if (url.pathname !== '/' && !url.pathname.endsWith('/')) {
+    url.pathname = `${url.pathname}/`;
+  }
+  return url.href;
+})();
 const siteName = 'flatfeehomesexchange.com';
 const ogImage = image;
 ---
@@ -30,6 +36,7 @@ const ogImage = image;
     <!-- Primary -->
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="google-site-verification" content="pSNuXBLFdG1rQs138Ql0AmilVmBtRvrlSN7EFT66gq0" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalURL} />
 
@@ -73,7 +80,7 @@ const ogImage = image;
         "@type": "Organization",
         "name": "Flat Fee Homes Exchange",
         "url": "https://flatfeehomesexchange.com",
-        "email": "sales@desertrich.com"
+        "email": "erg@flatfeehomesexchange.com"
       }
     })} />
   </head>

@@ -1,9 +1,17 @@
-# Cloudflare Workers Static Assets — pure static site
-# No Worker script / no adapter required
+# Cloudflare Workers Static Assets with canonical URL redirects
 name = "flatfeehomesexchange-com-v1"
 compatibility_date = "2026-08-11"
+main = "src/worker.ts"
+workers_dev = true
 
 [assets]
 directory = "./dist"
-# Optional: handle SPA-style 404s if needed later
-# not_found_handling = "404-page"
+binding = "ASSETS"
+
+[[routes]]
+pattern = "flatfeehomesexchange.com"
+custom_domain = true
+
+[[routes]]
+pattern = "www.flatfeehomesexchange.com"
+custom_domain = true
