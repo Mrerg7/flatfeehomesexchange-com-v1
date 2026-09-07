@@ -10,7 +10,7 @@ interface Props {
 
 const {
   title = 'Flat Fee Homes Exchange',
-  description = '',
+  description = 'Flat Fee Homes Exchange — a demonstration site for flat-fee home exchange concepts and related information.',
   image = 'https://imagedelivery.net/-sPAUAWeA405NiWJ0SNIQA/fa80d9b7-06c8-495e-5d88-41b172906600/public',
   noindex = false,
 } = Astro.props;
@@ -42,7 +42,6 @@ const ogImage = image;
 
     <!-- Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
 
     <!-- Theme -->
@@ -73,13 +72,13 @@ const ogImage = image;
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": siteName,
-      "url": "https://flatfeehomesexchange.com",
+      "url": "https://flatfeehomesexchange.com/",
       "description": description || "Flat Fee Homes Exchange",
       "image": ogImage,
       "publisher": {
         "@type": "Organization",
         "name": "Flat Fee Homes Exchange",
-        "url": "https://flatfeehomesexchange.com",
+        "url": "https://flatfeehomesexchange.com/",
         "email": "erg@flatfeehomesexchange.com"
       }
     })} />
