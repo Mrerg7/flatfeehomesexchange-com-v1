@@ -20,7 +20,7 @@ Asking price is **on request** until you set a number:
 export const ASKING_PRICE: number | null = null;
 ```
 
-Use a whole dollar amount, for example `5500`, to print a Buy Now price and add `price` to the Product schema. Inquiries go to `erg@flatfeehomesexchange.com` and open the visitor’s mail app. This site does not charge a card.
+Use a whole dollar amount, for example `5500`, to print a Buy Now price and add `price` to the Product schema. Inquiries go to `sales@desertrich.com` and open the visitor’s mail app. This site does not charge a card.
 
 ## Local development
 

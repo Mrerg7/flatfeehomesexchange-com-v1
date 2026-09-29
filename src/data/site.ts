@@ -1,5 +1,5 @@
 export const DOMAIN = "flatfeehomesexchange.com";
-export const EMAIL = "erg@flatfeehomesexchange.com";
+export const EMAIL = "sales@desertrich.com";
 export const BRAND = "Flat Fee Homes Exchange";
 export const HERO_IMAGE =
   "https://imagedelivery.net/-sPAUAWeA405NiWJ0SNIQA/fa80d9b7-06c8-495e-5d88-41b172906600/public";

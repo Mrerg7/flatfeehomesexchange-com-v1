@@ -1,3 +1,5 @@
+import { EMAIL } from "../data/site";
+
 const root = document.documentElement;
 
 function currentTheme(): "dark" | "light" {
@@ -98,7 +100,7 @@ document.querySelectorAll<HTMLFormElement>("[data-offer-form]").forEach((form) =
     }
     const subject = `Domain inquiry: flatfeehomesexchange.com (${intent})`;
     const body = `Name: ${name}\nEmail: ${email}\nOffer USD: ${amount || "not specified"}\nIntent: ${intent}\n\n${message || "(no message)"}`;
-    window.location.href = `mailto:erg@flatfeehomesexchange.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 });
 
