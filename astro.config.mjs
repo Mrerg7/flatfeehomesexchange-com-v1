@@ -1,15 +1,18 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
+import tailwindcss from "@tailwindcss/vite";
 
-// https://astro.build/config
 export default defineConfig({
-  site: 'https://flatfeehomesexchange.com',
-  output: 'static',
-  integrations: [sitemap()],
+  site: "https://flatfeehomesexchange.com",
+  output: "static",
+  trailingSlash: "always",
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes("/404"),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
-  // Pure static — no adapter required for Cloudflare Workers Static Assets
 });

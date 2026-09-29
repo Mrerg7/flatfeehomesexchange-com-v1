@@ -1,102 +1,107 @@
 @import "tailwindcss";
 
-/* Custom theme tokens for mystic aesthetic */
 @theme {
-  --color-void: #050505;
-  --color-mist: #0a0a0f;
-  --color-ember: #1a1210;
-  --color-ghost: #e8e4df;
-  --color-whisper: #a39e97;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  --font-display: Fraunces, Georgia, "Times New Roman", serif;
+  --color-paper: #f3eee6;
+  --color-ink: #1c1915;
+  --color-card: #fffaf3;
+  --color-line: #e4d9c8;
+  --color-muted: #5c564c;
+  --color-sage: #2a6248;
+  --color-sage-ink: #f3faf6;
+  --color-steel: #34556f;
+  --color-brass: #8a6434;
+  --radius-card: 1.25rem;
 }
 
-/* Base */
-html {
-  @apply bg-[var(--color-void)] text-[var(--color-ghost)] antialiased;
-  scroll-behavior: smooth;
+html.dark {
+  --color-paper: #141311;
+  --color-ink: #f3eee6;
+  --color-card: #1e1c18;
+  --color-line: #34302a;
+  --color-muted: #b7aea2;
+  --color-sage: #8fbfa4;
+  --color-sage-ink: #10241a;
+  --color-steel: #c5d4e2;
+  --color-brass: #e2c48a;
 }
 
-body {
-  @apply min-h-dvh overflow-x-hidden text-base;
-}
-
-/* Mystic image effects */
-@keyframes fade-in-slow {
-  0% {
-    opacity: 0;
-    transform: scale(1.08);
-    filter: brightness(0.4) contrast(1.2) saturate(0.6);
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background: var(--color-paper);
+    color: var(--color-ink);
   }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-    filter: brightness(0.85) contrast(1.05) saturate(0.75);
+
+  body {
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-wrap: anywhere;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  h1,
+  h2,
+  p,
+  a,
+  li,
+  figcaption {
+    overflow-wrap: anywhere;
+  }
+
+  #content,
+  #content *,
+  header,
+  header *,
+  footer,
+  footer * {
+    min-width: 0;
+  }
+
+  button,
+  [role="button"],
+  summary {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-sage);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-sage) 28%, transparent);
+    color: var(--color-ink);
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary {
+    list-style: none;
+  }
+
+  dialog {
+    border: 1px solid var(--color-line);
+    background: var(--color-card);
+    color: var(--color-ink);
+    border-radius: var(--radius-card);
+    padding: 1.5rem;
+    width: min(32rem, calc(100% - 2rem));
+  }
+
+  dialog::backdrop {
+    background: color-mix(in srgb, var(--color-ink) 45%, transparent);
   }
 }
 
-@keyframes pulse-glow {
-  0%,
-  100% {
-    opacity: 0.35;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  50% {
-    opacity: 0.55;
-  }
-}
-
-@keyframes drift {
-  0% {
-    transform: translate(-2%, -1%) scale(1.05);
-  }
-  50% {
-    transform: translate(1%, 2%) scale(1.08);
-  }
-  100% {
-    transform: translate(-2%, -1%) scale(1.05);
-  }
-}
-
-@keyframes soft-fade {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.mystic-image {
-  animation: fade-in-slow 4.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.fog-layer {
-  animation: pulse-glow 9s ease-in-out infinite;
-}
-
-.drift-layer {
-  animation: drift 28s ease-in-out infinite;
-}
-
-.cta-reveal {
-  animation: soft-fade 2.2s ease-out 2.8s both;
-}
-
-.footer-reveal {
-  animation: soft-fade 1.8s ease-out 4s both;
-}
-
-/* Subtle noise texture via CSS (no external asset) */
-.noise {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 180px;
-  pointer-events: none;
-}
-
-/* Selection */
-::selection {
-  background: rgba(180, 160, 140, 0.25);
-  color: var(--color-ghost);
 }

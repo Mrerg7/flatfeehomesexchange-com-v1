@@ -1,0 +1,44 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { guides } from "../../data/site";
+
+export function getStaticPaths() {
+  return guides.map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
+}
+
+const { guide } = Astro.props;
+const title = `${guide.title} | Flat Fee Homes Exchange`;
+const schema = {
+  "@type": "Article",
+  headline: guide.title,
+  description: guide.description,
+  dateModified: guide.updated,
+  datePublished: guide.updated,
+  author: { "@id": "https://flatfeehomesexchange.com/#org" },
+  mainEntityOfPage: `https://flatfeehomesexchange.com/guides/${guide.slug}/`,
+};
+---
+
+<Layout title={title} description={guide.description} schema={schema}>
+  <article class="mx-auto max-w-3xl px-4 py-12">
+    <p class="text-sm text-muted">
+      <a href="/guides/" class="text-steel">Guides</a>
+      · {guide.updated} · {guide.minutes} min read
+    </p>
+    <h1 class="mt-3 font-display text-4xl leading-tight">{guide.title}</h1>
+    <p class="mt-4 text-lg text-muted">{guide.description}</p>
+    <div class="mt-10 grid gap-8">
+      {
+        guide.sections.map((section) => (
+          <section>
+            <h2 class="font-display text-2xl">{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => (
+              <p class="mt-3">{paragraph}</p>
+            ))}
+          </section>
+        ))
+      }
+    </div>
+    <p class="mt-12 text-sm text-muted">General information, not legal, tax, or brokerage advice.</p>
+  </article>
+</Layout>

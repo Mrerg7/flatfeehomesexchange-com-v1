@@ -1,0 +1,58 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { ASKING_PRICE, DOMAIN, excluded, included, money, steps } from "../data/site";
+
+const title = `How to buy ${DOMAIN} | Premium Domain for Sale | Flat Fee Homes Exchange`;
+const description = `Buy flatfeehomesexchange.com from the owner. Agree a price, open Escrow.com, then transfer the .com. Asking price ${money(ASKING_PRICE)}.`;
+const schema = {
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://flatfeehomesexchange.com/" },
+    { "@type": "ListItem", position: 2, name: "How to buy", item: "https://flatfeehomesexchange.com/buy/" },
+  ],
+};
+---
+
+<Layout title={title} description={description} schema={schema}>
+  <article class="mx-auto max-w-3xl px-4 py-12">
+    <p class="text-sm font-semibold text-brass">Acquisition</p>
+    <h1 class="mt-3 font-display text-4xl leading-tight">How to buy {DOMAIN}</h1>
+    <p class="mt-4 text-lg text-muted">
+      Asking price {money(ASKING_PRICE)}. The sequence is short on purpose. Payment never starts on this website.
+    </p>
+    <ol class="mt-10 grid gap-8">
+      {
+        steps.map((step) => (
+          <li class="grid grid-cols-[auto_1fr] gap-4">
+            <span class="font-display text-2xl text-brass">{step.n}</span>
+            <div>
+              <h2 class="text-xl font-semibold">{step.title}</h2>
+              <p class="mt-2 text-muted">{step.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+    <div class="mt-12 grid gap-6 sm:grid-cols-2">
+      <section class="rounded-card border border-line bg-card p-5">
+        <h2 class="font-display text-2xl">Included</h2>
+        <ul class="mt-3 grid gap-2 text-muted">
+          {included.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+      <section class="rounded-card border border-line bg-card p-5">
+        <h2 class="font-display text-2xl">Not included</h2>
+        <ul class="mt-3 grid gap-2 text-muted">
+          {excluded.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+    </div>
+    <p class="mt-8 text-muted">
+      Escrow.com is an independent company. Opening a transaction there is your choice, not a paid placement.
+      Start at <a class="text-steel underline underline-offset-4" href="https://www.escrow.com/" rel="noopener noreferrer">escrow.com</a>.
+    </p>
+    <button type="button" data-open-offer="Buy Now" data-track="buy_offer" class="mt-8 inline-flex h-12 items-center justify-center rounded-full bg-sage px-6 font-semibold text-sage-ink">
+      Start a buy now note
+    </button>
+  </article>
+</Layout>

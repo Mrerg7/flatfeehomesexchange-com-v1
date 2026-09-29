@@ -1,0 +1,181 @@
+---
+import { BRAND, DOMAIN, EMAIL } from "../data/site";
+
+const path = Astro.url.pathname;
+const links = [
+  { href: "/", label: "The name" },
+  { href: "/buy/", label: "How to buy" },
+  { href: "/guides/", label: "Guides" },
+  { href: "/faq/", label: "FAQ" },
+  { href: "/contact/", label: "Contact" },
+];
+
+function active(href: string) {
+  if (href === "/") return path === "/";
+  return path.startsWith(href);
+}
+---
+
+<a
+  href="#content"
+  class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-sage focus:px-4 focus:py-3 focus:text-sage-ink"
+>
+  Skip to content
+</a>
+<div class="border-b border-line bg-card">
+  <p class="mx-auto max-w-6xl px-4 py-2 text-center text-sm text-muted">
+    Domain acquisition only · Owner direct · Escrow.com transfer
+  </p>
+</div>
+<header class="sticky top-0 z-30 border-b border-line bg-paper/95 backdrop-blur-md">
+  <div class="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
+    <a href="/" class="min-w-0 flex-1">
+      <span class="block truncate font-display text-lg leading-tight">{BRAND}</span>
+      <span class="block truncate text-sm text-muted">{DOMAIN}</span>
+    </a>
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
+      {
+        links.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "inline-flex h-12 items-center rounded-full px-4 text-sm font-semibold",
+              active(item.href) ? "bg-card text-ink" : "text-muted",
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+    <button
+      type="button"
+      data-theme-toggle
+      class="inline-flex size-12 items-center justify-center rounded-full border border-line bg-card"
+      aria-pressed="false"
+    >
+      <span class="sr-only">Toggle color theme</span>
+      <span aria-hidden="true">◐</span>
+    </button>
+    <button
+      type="button"
+      data-open-offer="Make Offer"
+      data-track="header_offer"
+      class="hidden h-12 items-center rounded-full bg-sage px-5 text-sm font-semibold text-sage-ink lg:inline-flex"
+    >
+      Make offer
+    </button>
+    <button
+      type="button"
+      data-menu-toggle
+      class="inline-flex size-12 items-center justify-center rounded-full border border-line lg:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <span class="sr-only">Open menu</span>
+      <span aria-hidden="true">☰</span>
+    </button>
+  </div>
+  <nav id="mobile-nav" class="hidden border-t border-line px-4 py-3 lg:hidden" aria-label="Mobile">
+    {
+      links.map((item) => (
+        <a href={item.href} class="flex h-12 items-center rounded-xl px-3 text-base font-semibold">
+          {item.label}
+        </a>
+      ))
+    }
+    <button
+      type="button"
+      data-open-offer="Make Offer"
+      data-track="mobile_offer"
+      class="mt-2 inline-flex h-12 w-full items-center justify-center rounded-full bg-sage font-semibold text-sage-ink"
+    >
+      Make offer
+    </button>
+  </nav>
+</header>
+
+<slot />
+
+<footer class="border-t border-line">
+  <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2">
+    <div>
+      <p class="font-display text-2xl">{BRAND}</p>
+      <p class="mt-2 text-muted">
+        Inquiries:
+        <a class="text-steel underline decoration-line underline-offset-4" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+      </p>
+    </div>
+    <nav class="grid grid-cols-2 gap-2 text-sm font-semibold" aria-label="Footer">
+      {
+        links.map((item) => (
+          <a href={item.href} class="inline-flex h-12 items-center text-steel">
+            {item.label}
+          </a>
+        ))
+      }
+      <a href="/privacy/" class="inline-flex h-12 items-center text-steel">Privacy</a>
+    </nav>
+  </div>
+  <p class="mx-auto max-w-6xl px-4 pb-10 text-sm leading-relaxed text-muted">
+    {DOMAIN} is offered for sale as a domain name only. This website is not a real-estate brokerage, not a
+    home-exchange service, and not an offer of those services. A completed sale transfers the registration
+    through independent escrow. It does not include a business, trademark, customers, or a guarantee of
+    results. Market comments are general information and can change.
+  </p>
+</footer>
+
+<dialog id="offer-dialog" aria-labelledby="offer-title">
+  <form data-offer-form class="grid gap-4">
+    <div class="flex items-start justify-between gap-4">
+      <div>
+        <h2 id="offer-title" class="font-display text-2xl" data-intent-label>Make Offer</h2>
+        <p class="mt-2 text-muted">
+          {DOMAIN}. Your note opens in email to {EMAIL}. Nothing is charged on this page.
+        </p>
+      </div>
+      <button type="button" data-close-dialog class="inline-flex size-12 items-center justify-center rounded-full border border-line" aria-label="Close">
+        ×
+      </button>
+    </div>
+    <input type="hidden" name="intent" value="Make Offer" />
+    <label class="grid gap-2 text-sm font-semibold">
+      Name
+      <input required name="name" autocomplete="name" class="h-12 rounded-xl border border-line bg-paper px-3 text-base font-normal" />
+    </label>
+    <label class="grid gap-2 text-sm font-semibold">
+      Email
+      <input required type="email" name="email" autocomplete="email" class="h-12 rounded-xl border border-line bg-paper px-3 text-base font-normal" />
+    </label>
+    <label class="grid gap-2 text-sm font-semibold">
+      Offer in USD
+      <input name="amount" inputmode="decimal" class="h-12 rounded-xl border border-line bg-paper px-3 text-base font-normal" />
+    </label>
+    <label class="grid gap-2 text-sm font-semibold">
+      Note
+      <textarea name="message" rows="4" class="rounded-xl border border-line bg-paper px-3 py-3 text-base font-normal"></textarea>
+    </label>
+    <p data-form-error class="text-sm text-brass" role="alert"></p>
+    <p data-form-status hidden class="text-sm" role="status">
+      If your email app did not open, write {EMAIL} directly.
+    </p>
+    <button type="submit" class="inline-flex h-12 items-center justify-center rounded-full bg-sage font-semibold text-sage-ink">
+      Email this offer
+    </button>
+  </form>
+</dialog>
+
+<dialog id="exit-dialog" aria-labelledby="exit-title">
+  <h2 id="exit-title" class="font-display text-2xl">The name is still available</h2>
+  <p class="mt-3 text-muted">
+    No discount clock. {DOMAIN} is one registration, sold by the owner. If it fits, send a note.
+  </p>
+  <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+    <button type="button" data-close-dialog data-open-offer="Make Offer" class="inline-flex h-12 flex-1 items-center justify-center rounded-full bg-sage font-semibold text-sage-ink">
+      Make an offer
+    </button>
+    <button type="button" data-close-dialog class="inline-flex h-12 flex-1 items-center justify-center rounded-full border border-line font-semibold">
+      Keep looking
+    </button>
+  </div>
+</dialog>

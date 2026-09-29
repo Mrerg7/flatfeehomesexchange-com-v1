@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { EMAIL } from "../data/site";
+
+const title = "Privacy | Flat Fee Homes Exchange";
+const description = "This sales page stores offer drafts only in your browser. Email is the way a note reaches the owner.";
+---
+
+<Layout title={title} description={description}>
+  <article class="mx-auto max-w-3xl px-4 py-12">
+    <h1 class="font-display text-4xl">Privacy</h1>
+    <div class="mt-6 grid gap-4 text-muted">
+      <p>
+        Offer forms keep a local copy in this browser so you can see that the note was prepared. That copy is not uploaded to a server by this site. Sending it happens in your own email app, addressed to {EMAIL}.
+      </p>
+      <p>
+        Theme choice and a short list of button clicks also stay in this browser under keys beginning with ffhe-. Clear site data for this origin to remove them.
+      </p>
+      <p>
+        No analytics tag is installed in this build. If you add Cloudflare Web Analytics or another tag later, that vendor’s policy applies to what the tag collects.
+      </p>
+      <p>Updated 29 September 2026.</p>
+    </div>
+  </article>
+</Layout>

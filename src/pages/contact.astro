@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { DOMAIN, EMAIL } from "../data/site";
+
+const title = `Contact the owner | ${DOMAIN}`;
+const description = `Make an offer on flatfeehomesexchange.com. Email ${EMAIL}. No payment is taken on this page.`;
+---
+
+<Layout title={title} description={description}>
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-2">
+    <div>
+      <h1 class="font-display text-4xl leading-tight">Contact the owner</h1>
+      <p class="mt-4 text-lg text-muted">
+        Write about {DOMAIN}. The form prepares an email to {EMAIL}. This page does not charge a card or store the note on a server.
+      </p>
+      <dl class="mt-8 grid gap-4 text-sm">
+        <div>
+          <dt class="font-semibold">Email</dt>
+          <dd><a class="text-steel underline underline-offset-4" href={`mailto:${EMAIL}`}>{EMAIL}</a></dd>
+        </div>
+        <div>
+          <dt class="font-semibold">Subject line that helps</dt>
+          <dd class="text-muted">Offer for {DOMAIN}, plus the dollar amount.</dd>
+        </div>
+      </dl>
+    </div>
+    <form data-offer-form class="grid gap-4 rounded-card border border-line bg-card p-6">
+      <input type="hidden" name="intent" value="Contact Owner" />
+      <label class="grid gap-2 text-sm font-semibold">
+        Name
+        <input required name="name" autocomplete="name" class="h-12 rounded-xl border border-line bg-paper px-3 text-base font-normal" />
+      </label>
+      <label class="grid gap-2 text-sm font-semibold">
+        Email
+        <input required type="email" name="email" autocomplete="email" class="h-12 rounded-xl border border-line bg-paper px-3 text-base font-normal" />
+      </label>
+      <label class="grid gap-2 text-sm font-semibold">
+        Offer in USD
+        <input name="amount" inputmode="decimal" class="h-12 rounded-xl border border-line bg-paper px-3 text-base font-normal" />
+      </label>
+      <label class="grid gap-2 text-sm font-semibold">
+        Note
+        <textarea name="message" rows="5" class="rounded-xl border border-line bg-paper px-3 py-3 text-base font-normal"></textarea>
+      </label>
+      <p data-form-error class="text-sm text-brass" role="alert"></p>
+      <p data-form-status hidden role="status">If your mail app did not open, send the same note to {EMAIL}.</p>
+      <button type="submit" class="inline-flex h-12 items-center justify-center rounded-full bg-sage font-semibold text-sage-ink">
+        Email the owner
+      </button>
+    </form>
+  </div>
+</Layout>

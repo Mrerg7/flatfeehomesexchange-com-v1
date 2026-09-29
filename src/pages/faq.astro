@@ -1,0 +1,36 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { faqs } from "../data/site";
+
+const title = "FAQ | flatfeehomesexchange.com for sale";
+const description =
+  "Questions about buying flatfeehomesexchange.com: price, escrow, what is included, and how long a .com transfer takes.";
+const schema = {
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+---
+
+<Layout title={title} description={description} schema={schema}>
+  <div class="mx-auto max-w-3xl px-4 py-12">
+    <h1 class="font-display text-4xl leading-tight">Questions</h1>
+    <p class="mt-4 text-lg text-muted">Straight answers. If yours is not here, use the contact page.</p>
+    <div class="mt-8 divide-y divide-line border-y border-line">
+      {
+        faqs.map((item) => (
+          <details class="py-2">
+            <summary class="flex min-h-12 items-center justify-between gap-4 py-3 font-semibold">
+              {item.q}
+              <span class="text-brass" aria-hidden="true">+</span>
+            </summary>
+            <p class="pb-4 text-muted">{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</Layout>

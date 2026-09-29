@@ -1,0 +1,32 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { guides } from "../../data/site";
+
+const title = "Domain buying guides | Flat Fee Homes Exchange";
+const description =
+  "Plain guides on brandable .com diligence, flat-fee real estate names, and escrow transfers. Written for buyers of flatfeehomesexchange.com.";
+---
+
+<Layout title={title} description={description}>
+  <div class="mx-auto max-w-3xl px-4 py-12">
+    <h1 class="font-display text-4xl leading-tight">Guides</h1>
+    <p class="mt-4 text-lg text-muted">
+      Short reading for someone deciding whether this name is worth an offer. Not a weekly blog pretending to be a newsroom.
+    </p>
+    <ul class="mt-8 grid gap-4">
+      {
+        guides.map((guide) => (
+          <li class="rounded-card border border-line bg-card p-5">
+            <p class="text-sm text-muted">
+              {guide.updated} · {guide.minutes} min
+            </p>
+            <h2 class="mt-2 font-display text-2xl">
+              <a href={`/guides/${guide.slug}/`}>{guide.title}</a>
+            </h2>
+            <p class="mt-2 text-muted">{guide.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Layout>

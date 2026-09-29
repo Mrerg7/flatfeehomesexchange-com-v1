@@ -1,16 +1,26 @@
 # flatfeehomesexchange.com
 
-Mysterious, image-driven static site built with **Astro 7** + **Tailwind CSS 4**, deployed as pure **Cloudflare Workers Static Assets** (no adapter, assets-only).
+Premium domain acquisition site for **flatfeehomesexchange.com**. Astro static output, Tailwind CSS 4, deployed as **Cloudflare Workers Static Assets** (free plan, assets + a small routing worker).
 
 ## Stack
 
-- Astro 7 (static output)
+- Astro (static)
 - Tailwind CSS 4 via `@tailwindcss/vite`
 - `@astrojs/sitemap`
-- Content Collections (ready)
-- Cloudflare Images CDN for the primary visual
-- Full Open Graph + Twitter cards + JSON-LD structured data
-- `robots.txt` + auto-generated sitemap
+- Cloudflare Images for the brand mark
+- Open Graph, Twitter cards, canonical URLs, JSON-LD
+- `robots.txt` + sitemap
+
+## Price
+
+Asking price is **on request** until you set a number:
+
+```ts
+// src/data/site.ts
+export const ASKING_PRICE: number | null = null;
+```
+
+Use a whole dollar amount, for example `5500`, to print a Buy Now price and add `price` to the Product schema. Inquiries go to `erg@flatfeehomesexchange.com` and open the visitor’s mail app. This site does not charge a card.
 
 ## Local development
 
@@ -19,35 +29,25 @@ npm install
 npm run dev
 ```
 
-## Build & Deploy (Cloudflare Workers Static Assets)
+## Build and deploy (Cloudflare Workers, free plan)
 
 ```bash
 npm run build
-# outputs pure static files to ./dist
-
-# Deploy (requires wrangler logged in)
 npm run deploy
-# or
-npx wrangler deploy
 ```
 
-`wrangler.toml` is configured for assets-only:
+`wrangler.toml` serves `./dist` and runs `src/worker.ts` first for canonical hosts, trailing slashes, sitemap aliasing, and security headers. No `@astrojs/cloudflare` adapter.
 
-```toml
-[assets]
-directory = "./dist"
-```
+Production: https://flatfeehomesexchange.com
 
-No Worker script or `@astrojs/cloudflare` adapter is required.
+## Before a production deploy
 
-## Domain
+1. Confirm `ASKING_PRICE` is the number you will honor, or leave it `null`.
+2. Build locally and spot-check `/`, `/buy/`, `/guides/`, `/faq/`, `/contact/`.
+3. Deploy during a quiet hour.
+4. In Google Search Console, resubmit `https://flatfeehomesexchange.com/sitemap.xml`.
+5. Watch the worker logs for a day. There is no third-party analytics tag in this build. Cloudflare Web Analytics can be pasted into `src/layouts/Layout.astro` if you want page counts.
 
-Production target: **https://flatfeehomesexchange.com**
+## What this site is not
 
-CTA routes to: `sales@desertrich.com`
-
-## Notes
-
-- Fully static, edge-cached via Cloudflare.
-- Mobile-first, full-viewport image with atmospheric fades, vignette, grain, and subtle drift.
-- No body copy — visual + single acquisition CTA + required disclaimer footer.
+It is not a brokerage, a home-exchange product, or a marketplace of other people’s domains. The only name for sale is flatfeehomesexchange.com.
